@@ -3,7 +3,6 @@
 ini_set('date.timezone', 'UTC');
 
 use Symfony\Component\HttpFoundation\Request;
-
 // This check prevents access to debug front controllers that are deployed by accident to production servers.
 // Feel free to remove this, extend it, or make something more sophisticated.
 if (isset($_SERVER['HTTP_CLIENT_IP'])
@@ -11,6 +10,7 @@ if (isset($_SERVER['HTTP_CLIENT_IP'])
     || !in_array(@$_SERVER['REMOTE_ADDR'], array(
         '127.0.0.1',
         '::1',
+        '33.33.108.1', // vagrant host
     ))
 ) {
     header('HTTP/1.0 403 Forbidden');
