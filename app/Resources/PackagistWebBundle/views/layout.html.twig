@@ -51,9 +51,8 @@
                         </ul>
                         <ul class="nav">
                             <li{% if page is defined and page == 'home' %} class="active"{% endif %}><a href="{{ path('home') }}">Home</a></li>
-                            <li><a href="{{ path('browse') }}">Browse Plugins</a></li>
+                            <li{% if page is defined and page == 'browse' %} class="active"{% endif %}><a href="{{ path('browse') }}">Browse Plugins</a></li>
                             <li{% if page is defined and page == 'submit' %} class="active"{% endif %}><a href="{{ path('submit') }}">Submit a Plugin</a></li>
-                            <li><a href="#">Contact</a></li>
                         </ul>
                     </div>
                 </div>

@@ -1,0 +1,29 @@
+{% macro listPackages(packages, paginate, showAutoUpdateWarning) %}
+    <ul>
+        {% for package in packages %}
+            <li data-url="{{ path('view_package', { 'name' : package.name }) }}">
+                <h2>
+                    <a href="{{ path('view_package', { 'name' : package.name }) }}">{{ package.name }}</a>
+                    {% if showAutoUpdateWarning and not package.autoUpdated %}
+                        [Not auto-updated]
+                    {% endif %}
+                </h2>
+                {% if package.description %}
+                    <p class="well package-description">{{ package.description }}</p>
+                {% endif %}
+            </li>
+        {% endfor %}
+
+        {% if paginate is defined and paginate and packages.nbPages > 1 %}
+            {{ pagerfanta(packages, 'default', {'proximity': 2}) }}
+        {% endif %}
+    </ul>
+{% endmacro %}
+
+{% macro packageLink(packageName) %}
+    {%- if packageName is existing_package -%}
+        <a href="{{ path('view_package', { 'name': packageName }) }}">{{ packageName }}</a>
+    {%- else -%}
+        {{ packageName }}
+    {%- endif -%}
+{% endmacro %}

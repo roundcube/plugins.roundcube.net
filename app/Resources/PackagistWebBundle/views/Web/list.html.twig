@@ -1,0 +1,16 @@
+{% extends noLayout|default(false) ? "::base_nolayout.html.twig" : "PackagistWebBundle::layout.html.twig" %}
+
+{% import "PackagistWebBundle::macros.html.twig" as macros %}
+
+{% block content %}
+    <div class="row-fluid package-list">
+        {% block content_title %}<h1>Plugins</h1>{% endblock %}
+        {% block list %}
+            {% if packages|length %}
+                {{ macros.listPackages(packages, paginate is not defined or paginate) }}
+            {% else %}
+                <div class="alert alert-warning">No packages found.</div>
+            {% endif %}
+        {% endblock %}
+    </div>
+{% endblock %}
