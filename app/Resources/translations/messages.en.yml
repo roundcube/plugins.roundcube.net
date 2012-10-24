@@ -1,0 +1,20 @@
+menu:
+    about_packagist: About
+    about_composer: About
+    home: Home
+    profile: Profile
+    logout: Logout
+    login: Login
+    register: Register
+    browse_packages: Browse Plugins
+    twitter: Follow @roundcube
+    contact: Contact
+    stats: Statistics
+
+link_type:
+    require: Requires
+    devRequire: Requires (Dev)
+    suggest: Suggests
+    conflict: Conflicts
+    replace: Replaces
+    provide: Provides
