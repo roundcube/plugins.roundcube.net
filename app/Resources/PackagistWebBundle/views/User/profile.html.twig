@@ -1,0 +1,20 @@
+{% extends "PackagistWebBundle::layout.html.twig" %}
+
+{% import "PackagistWebBundle::macros.html.twig" as macros %}
+
+
+{% block content %}
+    <div class="row-fluid">
+        <h1>{{ user.username }}</h1>
+        {% if is_granted('ROLE_ADMIN') %}
+            <p>Email: <a href="mailto:{{ user.email }}">{{ user.email }}</a></p>
+        {% endif %}
+        <p>Member since {{ user.createdAt|date('M d, Y') }}
+        <h2>Packages</h2>
+        {% if packages|length %}
+            {{ macros.listPackages(packages, true) }}
+        {% else %}
+            <p>No packages found.</p>
+        {% endif %}
+    </div>
+{% endblock %}
