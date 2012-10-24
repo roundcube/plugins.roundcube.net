@@ -1,0 +1,51 @@
+body {
+	background: white;
+	font-family: "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;
+	font-size: small;
+	color: black;
+	margin: 0;
+}
+
+#banner {
+	position: relative;
+	height: 58px;
+	margin: 0 0 1em 0;
+	padding: 10px 20px;
+	background: url('images/banner_gradient.gif') top left repeat-x #d8edfd;
+	overflow: hidden;
+}
+
+#banner .banner-bg {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 630px;
+	height: 78px;
+	background: url('images/banner_schraffur.gif') top right no-repeat;
+	z-index: 0;
+}
+
+#banner .banner-logo {
+	position: absolute;
+	top: 10px;
+	left: 20px;
+	z-index: 4;
+}
+
+#banner .banner-logo a {
+	border: 0;
+}
+
+#topnav {
+	position: absolute;
+	top: 2.8em;
+	right: 20px;
+}
+
+#topnav a {
+	color: #666;
+}
+
+#content {
+	margin: 2em 20px;
+}

@@ -21,7 +21,7 @@
           "email": "contact@packagist.org"
     },
     "autoload": {
-        "psr-0": { "Packagist": "src/" }
+        "psr-0": { "Packagist": "src/", "RoundCube": "src/" }
     },
     "require": {
         "php": ">=5.3.3",

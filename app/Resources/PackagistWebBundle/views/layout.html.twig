@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+
+        <title>{% block title %}RoundCube Plugins{% endblock %}</title>
+        <meta name="description" content="" />
+        <meta name="author" content="RoundCube Team" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
+        <link rel="apple-touch-icon" href="{{ asset('apple-touch-icon.png') }}" />
+
+
+        <link rel="stylesheet" href="{{ asset('bundles/roundcubeweb/bootstrap-2.1.1/css/bootstrap.min.css') }}" />
+        <link rel="stylesheet" href="{{ asset('bundles/roundcubeweb/bootstrap-2.1.1/css/bootstrap-responsive.css') }}" />
+        <style type="text/css">
+        body {
+            position: relative;
+            padding-top: 70px;
+        }
+        </style>
+{#
+        <link rel="stylesheet" href="{{ asset('bundles/roundcubeweb/css/roundcube.css') }}" />
+#}
+        <link rel="alternate" type="application/rss+xml" title="Newly Submitted Plugins - plugins.roundcube.net" href="{{ url('feed_packages', {_format: 'rss'}) }}" />
+        <link rel="alternate" type="application/rss+xml" title="New Releases - plugins.roundcube.net" href="{{ url('feed_releases', {_format: 'rss'}) }}" />
+
+        {% block head_additions %}{% endblock %}
+    </head>
+    <body>
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container-fluid">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="{{ path('home') }}">RoundCube Plugin Repository</a>
+                    <div class="nav-collapse collapse">
+                        <ul class="nav pull-right">
+                        {% if app.user %}
+                            <li><a href="{{ path('fos_user_profile_show') }}" class="navbar-link">{{ app.user.username }}</a></li>
+                            <li><a href="{{ path('logout') }}">Logout</a></li>
+                        {% else %}
+                            <li><a href="{{ path('fos_user_registration_register') }}">Create a new account</a></li>
+                            <li><a href="{{ path('hwi_oauth_connect') }}">Login</a></li>
+                        {% endif %}
+                        </ul>
+                        <ul class="nav">
+                            <li{% if page is defined and page == 'home' %} class="active"{% endif %}><a href="{{ path('home') }}">Home</a></li>
+                            <li><a href="{{ path('browse') }}">Browse Plugins</a></li>
+                            <li{% if page is defined and page == 'submit' %} class="active"{% endif %}><a href="{{ path('submit') }}">Submit a Plugin</a></li>
+                            <li><a href="#">Contact</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row-fluid" role="main">
+                {% for type, flashMessages in app.session.flashbag.all() %}
+                    {% for flashMessage in flashMessages %}
+                        <div class="alert alert-{{ type }}">
+                            {{ flashMessage }}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+
+{#
+                {% block search %}
+                    {% if searchForm is defined %}
+                        <div class="box">
+                            {% include "PackagistWebBundle:Web:searchForm.html.twig" %}
+                            <div class="search-list hidden">
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endblock %}
+#}
+
+                {% block content %}
+                {% endblock %}
+            </div>
+
+            <div class="row-fluid">
+                <ul class="nav nav-pills">
+                    <li><a href="{{ path('about') }}">{{ 'menu.about_packagist'|trans }}</a></li>
+                    <li><a href="{{ path('home') }}">{{ 'menu.home'|trans }}</a></li>
+                {% if app.user %}
+                    <li><a href="{{ path('fos_user_profile_show') }}">{{ 'menu.profile'|trans }}</a></li>
+                    <li><a href="{{ path('logout') }}">{{ 'menu.logout'|trans }}</a></li>
+                {% else %}
+                    <li><a href="{{ path('fos_user_registration_register') }}">{{ 'menu.register'|trans }}</a></li>
+                    <li><a href="{{ path('hwi_oauth_connect') }}">{{ 'menu.login'|trans }}</a></li>
+                {% endif %}
+                    <li><a href="{{ path('browse') }}">{{ 'menu.browse_packages'|trans }}</a></li>
+                    <li><a href="{{ path('stats') }}">{{ 'menu.stats'|trans }}</a></li>
+                    <li><a href="https://twitter.com/roundcube">{{ 'menu.twitter'|trans }}</a></li>
+                    <li><a href="mailto:hello@roundcube.net">{{ 'menu.contact'|trans }}</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+        <script>!window.jQuery && document.write(unescape('%3Cscript src="{{ asset('js/libs/jquery-1.8.2.min.js') }}"%3E%3C/script%3E'))</script>
+        <script src="{{ asset('bundles/roundcubeweb/bootstrap-2.1.1/js/bootstrap.min.js') }}"></script>
+{#
+        <script src="{{ asset('js/libs/humane.min.js') }}"></script>
+        <script src="{{ asset('bundles/packagistweb/js/layout.js') }}"></script>
+        <script src="{{ asset('bundles/packagistweb/js/search.js')}}"></script>
+#}
+
+        {% if not app.debug and google_analytics.ga_key %}
+            <script>
+                var _gaq=[['_setAccount','{{ google_analytics.ga_key }}'],['_trackPageview']];
+                (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.async=1;
+                g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+                s.parentNode.insertBefore(g,s)}(document,'script'));
+            </script>
+        {% endif %}
+
+        {% block scripts %}{% endblock %}
+    </body>
+</html>

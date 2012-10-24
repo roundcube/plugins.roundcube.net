@@ -1,0 +1,7 @@
+<form id="search-form" action="{{ path('search.ajax') }}" method="GET" {{ form_enctype(searchForm) }} autocomplete="off" class="form-horizontal">
+    {{ form_errors(searchForm.query) }}
+    {{ form_widget(searchForm.query, {'attr': {'class': 'input', 'autocomplete': 'off', 'placeholder': 'Search packages...', 'tabindex': 1}}) }}
+    {{ form_rest(searchForm) }}
+    <input class="btn" type="submit" value="Search" />
+</form>
+
