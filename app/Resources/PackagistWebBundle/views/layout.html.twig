@@ -69,6 +69,7 @@
                 {% endfor %}
 
 {#
+we have no solr currently
                 {% block search %}
                     {% if searchForm is defined %}
                         <div class="box">
@@ -88,13 +89,6 @@
                 <ul class="nav nav-pills">
                     <li><a href="{{ path('about') }}">{{ 'menu.about_packagist'|trans }}</a></li>
                     <li><a href="{{ path('home') }}">{{ 'menu.home'|trans }}</a></li>
-                {% if app.user %}
-                    <li><a href="{{ path('fos_user_profile_show') }}">{{ 'menu.profile'|trans }}</a></li>
-                    <li><a href="{{ path('logout') }}">{{ 'menu.logout'|trans }}</a></li>
-                {% else %}
-                    <li><a href="{{ path('fos_user_registration_register') }}">{{ 'menu.register'|trans }}</a></li>
-                    <li><a href="{{ path('hwi_oauth_connect') }}">{{ 'menu.login'|trans }}</a></li>
-                {% endif %}
                     <li><a href="{{ path('browse') }}">{{ 'menu.browse_packages'|trans }}</a></li>
                     <li><a href="{{ path('stats') }}">{{ 'menu.stats'|trans }}</a></li>
                     <li><a href="https://twitter.com/roundcube">{{ 'menu.twitter'|trans }}</a></li>
