@@ -1,0 +1,25 @@
+
+pre {
+	font-size: 0.8em;
+}
+
+tt {
+	font-size: 0.9em;
+}
+
+header h1 a {
+	width: auto;
+	height: auto;
+	padding: 30px 0 30px 0;
+	font-size: 22px;
+	background: none;
+}
+
+.main h2 {
+	font-size: 18px;
+	margin-top: 12px;
+}
+
+.main ol {
+	margin-bottom: 10px;
+}
