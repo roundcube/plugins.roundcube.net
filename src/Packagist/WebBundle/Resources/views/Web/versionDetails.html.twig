@@ -30,4 +30,15 @@
             {% endif %}
         </div>
     {% endfor %}
+    
+    {% if version.extra and version.extra.roundcube %}
+    <div class="roundcube">
+        <h2>{{ 'link_type.roundcube'|trans }}</h2>
+        <ul>
+        {%- for key,val in version.extra.roundcube -%}
+            <li><tt>{{ key }}</tt>: <tt>{{ val }}</tt></li>
+        {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
 </div>

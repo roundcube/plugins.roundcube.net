@@ -17,3 +17,4 @@ link_type:
     conflict: Conflicts
     replace: Replaces
     provide: Provides
+    roundcube: Roundcube Requirements
