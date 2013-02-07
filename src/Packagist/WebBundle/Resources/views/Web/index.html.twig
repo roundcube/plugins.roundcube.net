@@ -14,9 +14,9 @@
         <section class="getting-started">
             <h1>Getting Started</h1>
             <div>
-                The plugin repository for Roundcube is based on <a href="http://getcomposer.org/">Composer</a> to manage, install and update
+                <p>The plugin repository for Roundcube is based on <a href="http://getcomposer.org/">Composer</a> to manage, install and update
                 the plugins for your Roundcube installation. The following two steps are necessary to connect your local Roundcube
-                installation to the plugin repository:
+                installation to the plugin repository:</p>
 
                 <h2>1. Install Composer</h2>
                 <p>Run this in your command line:</p>
@@ -27,7 +27,7 @@ curl -s http://getcomposer.org/installer | php
                 <p>Or <a href="http://getcomposer.org/download/">download composer.phar</a> into your Roundcube root directory.</p>
 
                 <h2>2. Configure composer.json</h2>
-                <p>Copy the template composer.json-dist to composer.json in your Roundcube root directory.</p>
+                <p>Copy the template <tt>composer.json-dist</tt> to <tt>composer.json</tt> in your Roundcube root directory.</p>
 
                 <h2>3. Installing plugins</h2>
                 <p><a href="{{ path('browse') }}">Browse</a> through our repository and find the plugins you want to install.</p>
@@ -53,14 +53,15 @@ php composer.phar install
             <h1>Publishing Plugins</h1>
             <div>
                 <ol>
-                    <li>Read the [short introduction] how to write plugins for Roundcube on our wiki. Once you have your plugin ready for distribution,
+                    <li><p>Read the [short introduction] how to write plugins for Roundcube on our wiki. Once you have your plugin ready for distribution,
                         commit the code to a plublic git or svn repository like github. Make sure the plugin contents (e.g .php) are placed in the
-                        root direcotry of the git repository.</li>
-                    <li>Then put a file named composer.json to the root of your plugin repository, containing the following information:
+                        root direcotry of the git repository.</p></li>
+                    <li><p>Then put a file named composer.json to the root of your plugin repository, containing the following information:</p>
                     <pre>
 {
     "name": "&lt;your-vendor-name&gt;/&lt;plugin-name&gt;",
     "type": "roundcube-plugin",
+    "license": "GPL-3.0",
     "repositories": [
         {
             "type": "composer",
@@ -68,13 +69,13 @@ php composer.phar install
         }
     ],
     "require": {
-        "roundcube/plugin-installer": ">=0.1.0"
+        "roundcube/plugin-installer": ">=0.1.1"
     }
 }</pre>
                     <p>This is the strictly minimal information you have to provide. For more details about package naming and the fields you can use to describe your plugin better, see the <a href="{{ path('about') }}">about page</a>.</p>
                     </li>
-                    <li>Publish your plugin on this platform. <a href="{{ path('hwi_oauth_connect') }}">Login</a> or <a href="{{ path('fos_user_registration_register') }}">register</a>
-                        on this site, then hit the big fat button that says "Submit plugin".</li>
+                    <li><p>Publish your plugin on this platform. <a href="{{ path('hwi_oauth_connect') }}">Login</a> or <a href="{{ path('fos_user_registration_register') }}">register</a>
+                        on this site, then hit the big fat button that says "Submit plugin".</p></li>
                 </ol>
                 <p>Once you entered your public repository URL in there, your package will be automatically crawled periodically and published on this platform. You just have to make sure you keep the composer.json file up to date.</p>
             </div>

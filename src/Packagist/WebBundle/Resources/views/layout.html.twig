@@ -86,15 +86,15 @@
         <footer>
             <ul>
                 <li><a href="{{ path('about') }}">{{ 'menu.about'|trans }}</a></li>
-                <li><a href="{{ path('home') }}">{{ 'menu.home'|trans }}</a></li>
+                <li><a href="mailto:hello@roundcube.net">{{ 'menu.contact'|trans }}</a></li>
             </ul>
             <ul>
                 {% if app.user %}
                     <li><a href="{{ path('fos_user_profile_show') }}">{{ 'menu.profile'|trans }}</a></li>
                     <li><a href="{{ path('logout') }}">{{ 'menu.logout'|trans }}</a></li>
                 {% else %}
-                    <li><a href="{{ path('fos_user_registration_register') }}">{{ 'menu.register'|trans }}</a></li>
                     <li><a href="{{ path('hwi_oauth_connect') }}">{{ 'menu.login'|trans }}</a></li>
+                    <li><a href="{{ path('fos_user_registration_register') }}">{{ 'menu.register'|trans }}</a></li>
                 {% endif %}
             </ul>
             <ul>
@@ -103,7 +103,7 @@
             </ul>
             <ul>
                 <li><a href="https://twitter.com/roundcube">{{ 'menu.twitter'|trans }}</a></li>
-                <li><a href="mailto:hello@roundcube.net">{{ 'menu.contact'|trans }}</a></li>
+                <li><a href="http://roundcube.net">Roundcube website</a></li>
             </ul>
             <div class="clearfix"></div>
         </footer>

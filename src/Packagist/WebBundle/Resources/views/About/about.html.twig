@@ -5,7 +5,7 @@
         <h1>What is plugins.roundcube.net?</h1>
         <p>This site is the official plugin repository for Roundcube webmail.
             It lets you find and upload plugins and allows <a href="http://getcomposer.org/">Composer</a> to download and install them into your Roundcube installation.</p>
-        <p>The plugin repository is built with Packagist, an open source Composer package repository. You can find the source on GitHub <a href="https://github.com/roundcube/plugins.roundcube.net">GitHub</a>.
+        <p>The plugin repository is built with Packagist, an open source Composer package repository. You can find the source on <a href="https://github.com/roundcube/plugins.roundcube.net">GitHub</a>.
 
         <h1>How to submit plugins?</h1>
         <h2>Naming your package</h2>
@@ -50,7 +50,7 @@ kolab/kolab_addressbook
     ],
     "require": {
         "php": ">=5.3.0",
-        "roundcube/plugin-installer": ">=0.1.0"
+        "roundcube/plugin-installer": ">=0.1.1"
     },
     "extra": {
         "roundcube": {
@@ -61,10 +61,12 @@ kolab/kolab_addressbook
 }
 </pre>
 
-        Most of this information is obvious, keywords are tags, require are list of dependencies that your package has.
+        Most of this information is obvious, <tt>keywords</tt> are tags used in the full text search, <tt>require</tt> are list of dependencies that your package has.
         This can of course be packages, not only a php version. You can use ext-foo to require php extensions (e.g. ext-apc).
         Note that most extensions don't expose version information, so unless you know for sure it does, it's safer to use <code>"ext-apc": "*"</code>
         to allow any version of it.</p>
+        <p>The complete schema description can be found in the <a href="http://getcomposer.org/doc/04-schema.md">Composer documentation</a>.</p>
+
         <h2>Minimum requirements</h2>
         <p>Roundcube plugins need to have the following two properties set correctly:
 <pre>
@@ -72,10 +74,13 @@ kolab/kolab_addressbook
 </pre>
 <pre>
     "require": {
-        "roundcube/plugin-installer": ">=0.1.0"
+        "roundcube/plugin-installer": ">=0.1.1"
     }
 </pre>
         </p>
+        <p>If you want to limit the Roundcube version required for your plugin (or a certain vesion of your plugin) to run, you can do this within the <tt>extra</tt> block as shown in the example above.
+            It so happens that the internal Roundcube APIs change and therefore a newer version of your plugin might not work with an older version of Roundcube or vice versa.
+            In this case, specifying <tt>min-version</tt> and <tt>max-version</tt> can become essential.</p>
         <p>Once you have this file committed in your repository root, you can <a href="{{ path('submit') }}">submit the package</a> to the plugin repository by entering your public source repository URL.</p>
 
         <h1>Managing package versions</h1>
