@@ -172,7 +172,7 @@ footer {
 footer ul {
   width: 20%;
   list-style: none;
-  float: right;
+  float: left;
 }
 footer li {
   margin: 0;

@@ -1,10 +1,11 @@
 {% extends "PackagistWebBundle::layout.html.twig" %}
 
 {% block search %}
+<!--
     <div class="box">
         <p>Packagist is the main <a href="http://getcomposer.org/">Composer</a> repository. It aggregates all sorts of PHP packages that are installable with Composer.<br /><a href="{{ path('browse') }}">Browse packages</a> or <a href="{{ path('submit') }}">submit your own</a>.</p>
     </div>
-
+-->
     {{ parent() }}
 {% endblock %}
 
@@ -13,59 +14,70 @@
         <section class="getting-started">
             <h1>Getting Started</h1>
             <div>
-                <h2>Define Your Dependencies</h2>
-                <p>Put a file named <em>composer.json</em> at the root of your project, containing your project dependencies:</p>
-                <pre>
-{
-    "require": {
-        "vendor/package": "1.3.2",
-        "vendor/package2": "1.*",
-        "vendor/package3": ">=2.0.3"
-    }
-}
-</pre>
-                <h2>Install Composer In Your Project</h2>
+                <p>The plugin repository for Roundcube is based on <a href="http://getcomposer.org/">Composer</a> to manage, install and update
+                the plugins for your Roundcube installation. The following two steps are necessary to connect your local Roundcube
+                installation to the plugin repository:</p>
+
+                <h2>1. Install Composer</h2>
                 <p>Run this in your command line:</p>
                 <pre>
+cd &lt;roundcube-project-root&gt;
 curl -s http://getcomposer.org/installer | php
 </pre>
-                <p>Or <a href="http://getcomposer.org/composer.phar">download composer.phar</a> into your project root.</p>
-                <h2>Install Dependencies</h2>
-                <p>Execute this in your project root.</p>
+                <p>Or <a href="http://getcomposer.org/download/">download composer.phar</a> into your Roundcube root directory.</p>
+
+                <h2>2. Configure composer.json</h2>
+                <p>Copy the template <tt>composer.json-dist</tt> to <tt>composer.json</tt> in your Roundcube root directory.</p>
+
+                <h2>3. Installing plugins</h2>
+                <p><a href="{{ path('browse') }}">Browse</a> through our repository and find the plugins you want to install.</p>
+                <p>Then edit your local composer.json file and add the "vendor/plugin" names to the "require" section of the JSON structure.
+                    Don't forget to specify the version constraint:</p>
+                <pre>
+"require" : {
+    ...,
+    "roundcube/rcsample": ">=0.2.0"
+  },</pre>
+                <p>After every change to composer.json run</p>
                 <pre>
 php composer.phar install
 </pre>
-                <h2>Autoload Dependencies</h2>
-                <p>If all your packages follow the <a href="https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md">PSR-0</a> standard, you can autoload all the dependencies by adding this to your code:</p>
-                <pre>
-require 'vendor/autoload.php';
-</pre>
-
-                <p><a href="{{ path('browse') }}">Browse</a> the packages we have to find more great libraries you can use in your project.</p>
+                <p>to download and install all dependencies.</p>
+                <p>The plugins are installed to the <tt>plugins/</tt> directory and when running the install command you'll be asked whether
+                    to activate the plugins right away. For any later activation or deactivation of a plugin, you can add/remove the
+                    plugin name to/from the <tt>$rcmail_config['plugins']</tt> option in your local Roundcube config file config/main.inc.php.</p>
             </div>
         </section>
 
         <section class="publishing-packages">
-            <h1>Publishing Packages</h1>
+            <h1>Publishing Plugins</h1>
             <div>
-                <h2>Define Your Package</h2>
-                <p>Put a file named <em>composer.json</em> at the root of your package, containing this information:</p>
-                <pre>
+                <ol>
+                    <li><p>Read the [short introduction] how to write plugins for Roundcube on our wiki. Once you have your plugin ready for distribution,
+                        commit the code to a plublic git or svn repository like github. Make sure the plugin contents (e.g .php) are placed in the
+                        root direcotry of the git repository.</p></li>
+                    <li><p>Then put a file named composer.json to the root of your plugin repository, containing the following information:</p>
+                    <pre>
 {
-    "name": "your-vendor-name/package-name",
+    "name": "&lt;your-vendor-name&gt;/&lt;plugin-name&gt;",
+    "type": "roundcube-plugin",
+    "license": "GPL-3.0",
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "http://plugins.roundcube.net"
+        }
+    ],
     "require": {
-        "php": ">=5.3.0",
-        "another-vendor/package": "1.*"
+        "roundcube/plugin-installer": ">=0.1.1"
     }
-}
-</pre>
-                <p>This is the strictly minimal information you have to give.</p>
-                <p>For more details about package naming and the fields you can use to document your package better, see the <a href="{{ path('about') }}">about</a> page.</p>
-                <h2>Commit The File</h2>
-                <p>You surely don't need help with that.</p>
-                <h2>Publish It</h2>
-                <p><a href="{{ path('hwi_oauth_connect') }}">Login</a> or <a href="{{ path('fos_user_registration_register') }}">register</a> on this site, then hit the big fat green button above that says <a href="{{ path('submit') }}">submit</a>.</p>
-                <p>Once you entered your public repository URL in there, your package will be automatically crawled periodically. You just have to make sure you keep the composer.json file up to date.</p>
+}</pre>
+                    <p>This is the strictly minimal information you have to provide. For more details about package naming and the fields you can use to describe your plugin better, see the <a href="{{ path('about') }}">about page</a>.</p>
+                    </li>
+                    <li><p>Publish your plugin on this platform. <a href="{{ path('hwi_oauth_connect') }}">Login</a> or <a href="{{ path('fos_user_registration_register') }}">register</a>
+                        on this site, then hit the big fat button that says "Submit plugin".</p></li>
+                </ol>
+                <p>Once you entered your public repository URL in there, your package will be automatically crawled periodically and published on this platform. You just have to make sure you keep the composer.json file up to date.</p>
             </div>
         </section>
     </div>

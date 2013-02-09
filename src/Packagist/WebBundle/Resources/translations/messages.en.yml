@@ -1,13 +1,12 @@
 menu:
-    about_packagist: About Packagist
-    about_composer: About Composer
+    about: About
     home: Home
     profile: Profile
     logout: Logout
     login: Login
     register: Register
-    browse_packages: Browse Packages
-    twitter: Follow @packagist
+    browse_packages: Browse Plugins
+    twitter: Follow @roundcube
     contact: Contact
     stats: Statistics
 
@@ -18,3 +17,4 @@ link_type:
     conflict: Conflicts
     replace: Replaces
     provide: Provides
+    roundcube: Roundcube Requirements
