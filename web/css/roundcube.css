@@ -1,0 +1,65 @@
+/** Custom styles for Roundcube plugins repository **/
+
+a,
+a:visited,
+.package .package-aside a,
+.package .package-aside a:visited {
+    color: rgb(147, 15, 9);
+}
+
+.wrapper-footer a,
+.wrapper-footer a:visited,
+.btn-primary,
+.btn-primary:visited {
+    color: #fff;
+}
+
+.wrapper-search {
+    background-color: rgb(216, 237, 253);
+}
+
+.wrapper-search .container p,
+.wrapper-search .container a {
+    color: #333;
+    border-bottom-color: #333;
+}
+
+/* hide default logo */
+.wrapper-search .container img.logo {
+    display: none;
+}
+
+@media (min-width: 768px) {
+.wrapper-search .container.with-description {
+    padding-left: 123px;
+}
+
+/* inject our own logo */
+.wrapper-search .container .row > .col-sm-9::before {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 72px;
+    height: 70px;
+    left: -86px;
+    top: -38px;
+    background: url('logo-hires.png') top left no-repeat;
+    background-size: 100%;
+}
+
+.wrapper .content h2.title,
+.wrapper .content h3.title {
+    border-bottom-color: rgb(147, 15, 9);
+}
+
+.logo {
+    width: auto;
+}
+
+.search-list {
+    margin-top: 0;
+}
+
+.search-list ul.packages {
+    margin-top: 0;
+}

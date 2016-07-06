@@ -1,0 +1,225 @@
+{% extends "PackagistWebBundle::layout.html.twig" %}
+
+{% block content %}
+    <h2 class="title">What is plugins.roundcube.net?</h2>
+        <p>This site is the official plugin repository for Roundcube webmail.
+            It lets you find and upload plugins and allows <a href="http://getcomposer.org/">Composer</a>
+            to download and install them into your Roundcube installation.</p>
+        <p>The plugin repository is built with Packagist, an open source Composer package repository.
+            You can find the source on <a href="https://github.com/roundcube/plugins.roundcube.net">GitHub</a>.</p>
+
+    <h2 class="title" id="how-to-submit-plugins">How to submit plugins?</h2>
+    <section class="row">
+        <section class="col-md-6">
+            <h3 id="naming-your-package">Naming your package</h3>
+            <p>First of all, you must pick a package name. This is a very important step since it can not change,
+                and it should be unique enough to avoid problems in the future.</p>
+            <p>The first bit of the package name must be the vendor name, suffixed by a forward slash (/).
+                Use your github account or your personal alias here.</p>
+            <p>The secondary part of the package name is the Roundcube plugin name itself. Make sure you use
+                the exact name of the plugin which is also the name of the folder within Roundcube's
+                <code>plugins/</code> directory.</p>
+            <p>Here is a list of typical package names for reference:
+
+<pre><code>// the default archive plugin authored by the Roundcube developer
+roundcube/archive
+
+// that could be the name of an address book module for the Kolab Groupware
+// (if the Kolab team did it, the vendor would be kolab)
+kolab/kolab_addressbook
+</code></pre>
+
+            <p>Note that package names are case-insensitive, but it's encouraged to use a underscores (_)
+                as separator instead of CamelCased names.</p>
+        </section>
+        <section class="col-md-6">
+            <h3 id="creating-a-composerjson-file">Creating a composer.json file</h3>
+            <p>The composer.json file should reside at the top of your plugins's git/svn/.. repository,
+                and is the way you describe your plugin to both the plugin repository and composer.</p>
+            <p>A typical composer.json file looks like this:</p>
+
+<pre><code>{
+    "name": "roundcube/archive",
+    "type": "roundcube-plugin",
+    "description": "Archive feature for Roundcube",
+    "keywords": ["mail","archive"],
+    "homepage": "http://github.com/roundcube/roundcubemail",
+    "license": "GPL-3.0+",
+    "authors": [
+        {
+            "name": "Thomas Bruederli",
+            "email": "thomas@roundcube.net",
+            "homepage": "http://roundcube.net",
+            "role": "Developer"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://plugins.roundcube.net"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "roundcube/plugin-installer": ">=0.1.6"
+    },
+    "extra": {
+        "roundcube": {
+            "min-version": "0.9.0",
+            "max-version": "10.21"
+        }
+    }
+}</code></pre>
+
+        <p>Most of this information is obvious, <code>keywords</code> are tags used in the full text search,
+            <code>require</code> are list of dependencies that your package has.
+            This can of course be packages, not only a php version. You can use ext-foo to require php
+            extensions (e.g. ext-apc). Note that most extensions don't expose version information,
+            so unless you know for sure it does, it's safer to use <code>"ext-apc": "*"</code>
+            to allow any version of it.</p>
+        <p>The complete schema description can be found in the
+            <a href="https://getcomposer.org/doc/04-schema.md">Composer documentation</a>.</p>
+
+    </section>
+    <section class="col-md-6">
+        <h3 id="minimum-requirements">Minimum requirements</h3>
+        <p>Roundcube plugins need to have the following two properties set correctly:</p>
+        <pre><code>"type": "roundcube-plugin"</code></pre>
+        <pre><code>"require": {
+    "roundcube/plugin-installer": ">=0.1.6"
+}</code></pre>
+        <p>If you want to limit the Roundcube version required for your plugin
+            (or a certain vesion of your plugin) to run, you can do this within the <code>extra</code>
+            block as shown in the example above.
+            It so happens that the internal Roundcube APIs change and therefore a newer version
+            of your plugin might not work with an older version of Roundcube or vice versa.
+            In this case, specifying <code>min-version</code> and <code>max-version</code> can become essential.</p>
+        <p>Once you have this file committed in your repository root, you can <a href="{{ path('submit') }}">submit the package</a> to the plugin repository by entering your public source repository URL.</p>
+
+        <h3 id="plugin-install-upgrade-scripts">Plugin install/upgrade/uninstall scripts</h3>
+        <p>If the installation or upgrading of a plugin requires some additional things to be done
+            (e.g. creating a temp folder or installing cron jobs), arbitrary shell scripts can be
+            shipped with the plugin package and registered for execution after an install, update
+            or uninstall operation:</p>
+<pre><code>"extra": {
+    "roundcube": {
+        "post-install-script": "bin/install.sh",
+        "post-update-script": "bin/update-me.sh",
+        "post-uninstall-script": "bin/uninstall.sh"
+    }
+}
+</code></pre>
+        <p>The paths for the <code>post-*-script</code> options are relative to the plugin directory.
+            Scripts can either be shell script or PHP files and will be executed with the privileges
+            of the user who executes the plugin installation (i.e. running composer).</p>
+
+    </section>
+    <section class="col-md-6">
+        <h3 id="database-schema-initialization-upgradung">Database schema initialization and upgrading</h3>
+        <p>In case you plugin requires additional tables in the Roundcube database, the plugin installer
+            can take care of their initialization when installing the plugin as well as keeping the schema
+            up-to-date. This is done by specifying the <code>sql-dir</code> option in the
+            <code>extra/roundcube</code> section. The value should be a relative path to a directory
+            holding the SQL initialization and update files:</p>
+<pre><code>"extra": {
+    "roundcube": {
+        "sql-dir": "schema/SQL"
+    }
+}
+</code></pre>
+        <p>The SQL directory should contain the schema files for initialization named with
+            <code>&lt;driver&gt;.initial.sql</code> as well as subdirectories for each driver
+            (e.g. <code>mysql</code>) holding schema update scripts named with a numeric value
+            representing their creation date in the format <code>'Ymd00'</code>. Example:</p>
+<pre><code>schema/
+    SQL/
+        mysql/
+            2014022500.sql
+            2014121600.sql
+        postgres/
+            2014022500.sql
+            2014121600.sql
+        sqllite/
+            2014121600.sql
+        mysql.initial.sql
+        postgres.initial.sql
+        sqlite.initial.sql
+</code></pre>
+        <p>On plugin installation with a Mysql database driver configured, the file <code>schema/SQL/mysql.initial.sql</code> will be run against Roundcube's database connection. When the plugin is updated, all files with a name higher than the database initialization/update date from within <code>schema/SQL/mysql/</code> will be executed.</p>
+
+        </section>
+    </section>
+    <section class="row">
+        <section class="col-md-6">
+            <h3 id="control-searchability-and-listing">Control searchability and listing</h3>
+            <p>In order to make your plugin appear in the search results and catalog pages, it's important
+                to add the right keywords to it. Use the <code>keywords</code> property to define the
+                terms that match your plugin. We recommend to at least add the task which you plugin
+                mainly belongs to (e.g. mail, addressbook) there.</p>
+
+            <h3 id="managing-package-versions">Managing package versions</h3>
+            <p>New versions of your package are automatically fetched from tags you create in your VCS repository.</p>
+            <p>The easiest way to manage versioning is to just omit the version field from the composer.json
+                file. The version numbers will then be parsed from the tag and branch names.</p>
+            <p>Tag/version names should match 'X.Y.Z', or 'vX.Y.Z', with an optional suffix for RC, beta, alpha
+                or patch versions. Here are a few examples of valid tag names:</p>
+<pre><code>1.0.0
+v1.0.0
+1.10.5-RC1
+v4.4.4beta2
+v2.0.0-alpha
+v2.0.4-p1</code></pre>
+            <p>Branches will automatically appear as "dev" versions that are easily installable by anyone that
+                wants to try your library's latest and greatest, but that does not mean you should not tag releases.
+                The use of <a href="http://semver.org/">Semantic Versioning</a> is strongly encouraged.</p>
+        </section>
+
+        <section class="col-md-6">
+            <h3 id="update-schedule">Update Schedule</h3>
+            <p>New packages will be crawled <strong>immediately</strong> after submission.</p>
+            <p>Existing packages without auto-updating (GitHub/BitBucket hook) will be crawled <strong>once a
+                week</strong> for updates. When a hook is enabled packages are crawled whenever you push,
+                or at least once a month in case the crawl failed. You can also trigger a manual update on
+                your package page if you are logged-in as a maintainer.</p>
+            <p>It is highly recommended to set up the <strong>GitHub/BitBucket service hook</strong> for all
+                your packages. This reduces the load on our side, and ensures your package is updated almost
+                instantly. Check the how-to <a href="#how-to-update-packages">below</a>.</p>
+            <p>The search index is updated <strong>every five minutes</strong>. It will index (or reindex)
+                any package that has been crawled since the last time the search indexer ran.</p>
+        </section>
+    </section>
+
+    <div class="clearfix"></div>
+
+    <h2 class="title" id="how-to-update-packages">How to update packages?</h2>
+    <section class="row">
+        <section class="col-md-6">
+            <h3>GitHub Service Hook</h3>
+            <p>Enabling the Packagist service hook ensures that your package will always be updated instantly
+                when you push to GitHub.</p>
+            <p>To do so you can:</p>
+            <ul>
+                <li>Go to your GitHub repository</li>
+                <li>Click the "Settings" button</li>
+                <li>Click "Webhooks &amp; Services"</li>
+                <li>Add a "Packagist" service, and configure it with your API token, plus your username on this platform</li>
+                <li>Check the "Active" box and submit the form</li>
+            </ul>
+            <p>You can then hit the "Test Service" button to trigger it and check if the repository removes
+                the warning about the package not being auto-updated.</p>
+
+            <h3>API Token</h3>
+            <p>You can find your API token on <a href="{{ path('fos_user_profile_show') }}">your profile page</a>.</p>
+        </section>
+        <section class="col-md-6">
+            <h3>Bitbucket Webhooks</h3>
+            <p>To enable the Bitbucket web hook, go to your BitBucket repository, open the settings and select "Webhooks" in the menu. Add a new hook. You have to enter the Packagist endpoint, containing both your username and API token. Enter <code>https://plugins.roundcube.net/api/bitbucket?username={{ app.user.username|default('USERNAME') }}&amp;apiToken=API_TOKEN</code> as URL. Save your changes and you're done.</p>
+
+            <h3>Manual hook setup</h3>
+            <p>If you do not use Bitbucket or GitHub there is a generic endpoint you can call manually from a
+                git post-receive hook or similar. You have to do a <code>POST</code> request to <code>https://plugins.roundcube.net/api/update-package?username={{ app.user.username|default('USERNAME') }}&amp;apiToken=API_TOKEN</code> with a request body looking like this: <code>{"repository":{"url":"PACKAGIST_PACKAGE_URL"}}</code></p>
+            <p>You can do this using curl for example:</p>
+            <pre>curl -XPOST -H'content-type:application/json' 'https://plugins.roundcube.net/api/update-package?username={{ app.user.username|default('USERNAME') }}&amp;apiToken=API_TOKEN' -d'{"repository":{"url":"PACKAGIST_PACKAGE_URL"}}'</pre>
+        </section>
+    </section>
+{% endblock %}

@@ -1,0 +1,53 @@
+menu:
+    about_packagist: About Plugins
+    browse_packages: Browse Plugins
+    twitter: Follow @roundcube
+    my_packages: My plugins
+
+link_type:
+    roundcube: Roundcube Requirements
+
+brandname: Roundcube Plugins
+navclaim: The Official Plugin Repository
+'Search packages...': 'Search Plugins...'
+
+search:
+    claim_html: |
+        This is the main repository for Roundcube Webmail plugins. It aggregates public plugins installable with <a href="https://getcomposer.org/">Composer</a>.
+
+packages:
+    mine: My plugins
+    yours: Your plugins
+    maintained_by: Plugins maintained by _user
+    my_favorites: My favorite plugins
+    users_favorites: _user's favorite plugins
+
+submit:
+    title: Submit plugin
+    guide: |
+        <p>Please make sure you have read the <a href="_path_about_#naming-your-package">naming conventions</a> before submitting your plugin. The authoritative name of your plugin will be taken from the composer.json file inside the master branch or trunk of your repository, and it can not be changed after that.</p>
+        <p><strong>Do not submit forks of existing packages.</strong> If you need to test changes to a plugin that you forked to patch, use <a href="https://getcomposer.org/doc/05-repositories.md#vcs">VCS Repositories</a> instead. If however it is a real long-term fork you intend on maintaining feel free to submit it.</p>
+        <p>If you need help or if you have any questions please get in touch with our <a href="https://roundcube.net/support">community</a>.</p>
+
+listing:
+    title: Plugins
+    nopackages: No plugins found.
+    viewall: View All
+
+explore:
+    title: Plugins
+    newreleases: New Releases
+    newpackages: New Plugins
+    popularpackages: Popular Plugins
+    randompackages: Random Plugins
+
+api_doc:
+    title: API documentation
+    intro: Our plugin repository has a public API to consume data. See bellow the most important URIs:
+    list_by_organization: List plugins by organization
+    search_by_tag: Search plugins by tag
+    search_by_name: Search plugins by name
+    get_by_name: Get a plugin by name
+
+user:
+    packages: _username_'s plugins
