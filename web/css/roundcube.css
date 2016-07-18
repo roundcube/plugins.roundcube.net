@@ -7,6 +7,10 @@ a:visited,
     color: rgb(147, 15, 9);
 }
 
+.wrap {
+    padding-bottom: 152px;
+}
+
 .wrapper-footer a,
 .wrapper-footer a:visited,
 .btn-primary,
