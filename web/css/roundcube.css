@@ -1,5 +1,9 @@
 /** Custom styles for Roundcube plugins repository **/
 
+h3, .h3 {
+    font-size: 18px;
+}
+
 a,
 a:visited,
 .package .package-aside a,
