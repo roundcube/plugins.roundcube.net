@@ -41,13 +41,30 @@ explore:
     popularpackages: Popular Plugins
     randompackages: Random Plugins
 
+statistics:
+    over_time: Plugins/versions over time
+    last_month: Plugins installed in the last 30 days
+    monthly: Plugins installed per month
+    packages: Plugins
+    installs: Installs
+    registered: Plugins registered
+    installed: Plugins installed
+
 api_doc:
-    title: API documentation
-    intro: Our plugin repository has a public API to consume data. See bellow the most important URIs:
+    listing_names: Listing plugin names
+    all_packages: All plugins
+    by_organization: By organization
+    by_name: By name
+    by_type: By type
+    by_tag: By tag
     list_by_organization: List plugins by organization
-    search_by_tag: Search plugins by tag
+    list_by_type: List plugins by type
+    searching: Searching for plugins
     search_by_name: Search plugins by name
+    search_by_tag: Search plugins by tag
+    search_by_type: Search plugins by type
     get_by_name: Get a plugin by name
+    get_package_data: Getting plugin data
 
 user:
     packages: _username_'s plugins
