@@ -18,14 +18,14 @@ search:
 packages:
     mine: My plugins
     yours: Your plugins
-    maintained_by: Plugins maintained by _user
+    maintained_by: Plugins maintained by %user%
     my_favorites: My favorite plugins
-    users_favorites: _user's favorite plugins
+    users_favorites: %user%'s favorite plugins
 
 submit:
     title: Submit plugin
     guide: |
-        <p>Please make sure you have read the <a href="_path_about_#naming-your-package">naming conventions</a> before submitting your plugin. The authoritative name of your plugin will be taken from the composer.json file inside the master branch or trunk of your repository, and it can not be changed after that.</p>
+        <p>Please make sure you have read the <a href="%path_about%#naming-your-package">naming conventions</a> before submitting your plugin. The authoritative name of your plugin will be taken from the composer.json file inside the master branch or trunk of your repository, and it can not be changed after that.</p>
         <p><strong>Do not submit forks of existing packages.</strong> If you need to test changes to a plugin that you forked to patch, use <a href="https://getcomposer.org/doc/05-repositories.md#vcs">VCS Repositories</a> instead. If however it is a real long-term fork you intend on maintaining feel free to submit it.</p>
         <p>If you need help or if you have any questions please get in touch with our <a href="https://roundcube.net/support">community</a>.</p>
 
@@ -67,4 +67,4 @@ api_doc:
     get_package_data: Getting plugin data
 
 user:
-    packages: _username_'s plugins
+    packages: %username%'s plugins
