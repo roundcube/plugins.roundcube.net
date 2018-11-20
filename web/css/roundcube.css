@@ -24,7 +24,7 @@ a:visited,
 }
 
 .wrapper-search {
-    background-color: rgb(216, 237, 253);
+    background-color: #c6e6f4;
 }
 
 .wrapper-search .container p,
@@ -48,11 +48,11 @@ a:visited,
     content: "";
     display: block;
     position: absolute;
-    width: 72px;
+    width: 70px;
     height: 70px;
     left: -86px;
     top: -38px;
-    background: url('logo-hires.png') top left no-repeat;
+    background: url('logo-icon.svg') top left no-repeat;
     background-size: 100%;
 }
 
